@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=script, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h3>Random Number</h3>
+
+<input type="text" value="1" placeholder="enter your lucky number" id="userInput">
+
+<button onclick="randomgame()">check</button>
+
+<h4 id="randomNumber"></h4>
+<h4 id="result"></h4>
+
+<script>
+    let randomNumber = Math.random();
+    let multiplyTwenty = Math.floor(randomNumber * 20);
+
+    // console.log(randomNumber);
+    // console.log(multiplyTwenty);
+
+    let randomValueElement = document.getElementById("randomNumber");
+
+    randomValueElement.textContent = "random value: " + multiplyTwenty;
+
+    let inputtag = document.getElementById("userInput");
+
+    console.log(inputtag.value);
+
+    let randomValueElementResult = document.getElementById("result");
+
+    function randomgame() {
+        let convertInteger = parseInt(inputtag.value);
+
+        if (convertInteger == multiplyTwenty) {
+            randomValueElementResult.textContent = "you win";
+        } else {
+            randomValueElementResult.textContent = "you lose " + multiplyTwenty;
+        }
+    }
+</script>
+
+</body>
+</html>

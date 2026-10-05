@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Discover recipes from around the world with Pantry.">
+	<title>Pantry | Recipe Discovery</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--ink: #202b24;
+			--muted: #68736a;
+			--paper: #f7f7f2;
+			--card: #ffffff;
+			--line: #e1e6dc;
+			--sage: #42664e;
+			--sage-dark: #294535;
+			--lime: #d3ec92;
+			--coral: #ed795c;
+			--shadow: 0 16px 40px rgba(37, 57, 40, 0.08);
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			margin: 0;
+			color: var(--ink);
+			background: var(--paper);
+			font-family: "DM Sans", sans-serif;
+		}
+
+		button, input, select { font: inherit; }
+		button { cursor: pointer; }
+
+		.shell {
+			width: min(1240px, calc(100% - 48px));
+			margin: 0 auto;
+		}
+
+		header {
+			padding: 26px 0 18px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 24px;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 11px;
+			color: var(--ink);
+			text-decoration: none;
+			font-weight: 700;
+			letter-spacing: -0.03em;
+			font-size: 1.2rem;
+		}
+
+		.brand-mark {
+			width: 34px;
+			height: 34px;
+			display: grid;
+			place-items: center;
+			color: var(--sage-dark);
+			background: var(--lime);
+			border-radius: 50% 50% 50% 8px;
+			transform: rotate(-10deg);
+		}
+
+		.brand-mark span { transform: rotate(10deg); }
+
+		.favorites-button {
+			border: 1px solid var(--line);
+			background: transparent;
+			color: var(--ink);
+			padding: 10px 15px;
+			border-radius: 999px;
+			font-weight: 600;
+		}
+
+		.favorites-button:hover { border-color: var(--sage); color: var(--sage-dark); }
+
+		.hero {
+			min-height: 310px;
+			padding: 54px clamp(24px, 6vw, 84px);
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) 260px;
+			gap: 40px;
+			align-items: center;
+			overflow: hidden;
+			border-radius: 8px;
+			background: var(--sage-dark);
+			position: relative;
+		}
+
+		.hero::after {
+			content: "";
+			position: absolute;
+			width: 310px;
+			height: 310px;
+			right: 64px;
+			top: -120px;
+			border: 1px solid rgba(211, 236, 146, 0.25);
+			border-radius: 50%;
+			box-shadow: 0 0 0 34px rgba(211, 236, 146, 0.06), 0 0 0 68px rgba(211, 236, 146, 0.04);
+		}
+
+		.eyebrow {
+			margin: 0 0 15px;
+			color: var(--lime);
+			text-transform: uppercase;
+			font-size: 0.72rem;
+			font-weight: 700;
+			letter-spacing: 0.16em;
+		}
+
+		h1, h2 { font-family: "Playfair Display", serif; }
+		h1 { max-width: 680px; margin: 0; color: #f6f8ee; font-size: clamp(2.7rem, 6vw, 5.1rem); line-height: 0.98; letter-spacing: -0.055em; }
+		.hero-copy { max-width: 560px; margin: 18px 0 0; color: #cbd9c3; font-size: 1rem; line-height: 1.7; }
+
+		.hero-stat { position: relative; z-index: 1; padding: 22px; border-left: 1px solid rgba(211, 236, 146, 0.45); }
+		.hero-stat strong { display: block; color: var(--lime); font-family: "Playfair Display", serif; font-size: 3.7rem; line-height: 1; }
+		.hero-stat span { display: block; margin-top: 8px; color: #d5e2ce; line-height: 1.5; }
+
+		.toolbar {
+			margin: 28px 0 34px;
+			padding: 12px;
+			display: grid;
+			grid-template-columns: minmax(220px, 1.5fr) repeat(2, minmax(160px, 0.75fr)) auto;
+			gap: 10px;
+			border: 1px solid var(--line);
+			background: var(--card);
+			box-shadow: var(--shadow);
+		}
+
+		.field { position: relative; }
+		.field input, .field select {
+			width: 100%;
+			min-height: 48px;
+			padding: 0 14px;
+			border: 1px solid transparent;
+			outline: 0;
+			color: var(--ink);
+			background: #f5f7f1;
+			border-radius: 3px;
+		}
+		.field input:focus, .field select:focus { border-color: var(--sage); background: #fff; }
+		.search-icon { position: absolute; top: 14px; left: 14px; color: var(--muted); }
+		.field input[type="search"] { padding-left: 40px; }
+
+		.clear-button {
+			min-height: 48px;
+			border: 0;
+			color: var(--sage-dark);
+			background: var(--lime);
+			border-radius: 3px;
+			padding: 0 20px;
+			font-weight: 700;
+		}
+		.clear-button:hover { background: #c3e374; }
+
+		.section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 18px; }
+		.section-heading h2 { margin: 0; font-size: 2rem; letter-spacing: -0.035em; }
+		.result-count { color: var(--muted); font-size: 0.9rem; }
+
+		.recipe-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; padding-bottom: 60px; }
+		.recipe-card { min-width: 0; overflow: hidden; background: var(--card); border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(37, 57, 40, 0.04); transition: transform 180ms ease, box-shadow 180ms ease; animation: rise 420ms both; }
+		.recipe-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+		.card-image { position: relative; aspect-ratio: 1.24; overflow: hidden; background: #e8ece3; }
+		.card-image img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 400ms ease, opacity 180ms ease; }
+		.recipe-card:hover .card-image img { transform: scale(1.05); }
+		.recipe-card.is-playing .card-image img { opacity: 0; }
+		.video-preview { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; border: 0; pointer-events: none; }
+		.video-badge { position: absolute; z-index: 3; left: 12px; bottom: 12px; padding: 6px 9px; color: #fff; background: rgba(32, 43, 36, 0.82); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+		.favorite { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border: 0; border-radius: 50%; color: var(--ink); background: rgba(255,255,255,0.9); font-size: 1.1rem; }
+		.favorite.active { color: var(--coral); }
+		.card-body { padding: 17px 17px 19px; }
+		.card-meta { display: flex; gap: 8px; color: var(--sage); text-transform: uppercase; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; }
+		.card-body h3 { margin: 8px 0 15px; font-family: "Playfair Display", serif; font-size: 1.25rem; line-height: 1.18; }
+		.view-button { width: 100%; padding: 10px; border: 1px solid var(--line); color: var(--sage-dark); background: transparent; font-weight: 700; }
+		.view-button:hover { border-color: var(--sage); background: #f2f6ea; }
+
+		.state { grid-column: 1 / -1; padding: 70px 20px; color: var(--muted); text-align: center; }
+		.state strong { display: block; margin-bottom: 8px; color: var(--ink); font-family: "Playfair Display", serif; font-size: 1.6rem; }
+		.loader { width: 32px; height: 32px; margin: 0 auto 16px; border: 3px solid var(--line); border-top-color: var(--sage); border-radius: 50%; animation: spin 800ms linear infinite; }
+
+		dialog { width: min(780px, calc(100% - 32px)); max-height: min(760px, calc(100vh - 32px)); padding: 0; border: 0; color: var(--ink); background: var(--card); box-shadow: 0 25px 80px rgba(21, 39, 26, 0.25); }
+		dialog::backdrop { background: rgba(24, 37, 27, 0.62); backdrop-filter: blur(4px); }
+		.modal-image { width: 100%; height: 260px; object-fit: cover; display: block; }
+		.modal-content { padding: 26px 32px 32px; }
+		.modal-close { float: right; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: #fff; font-size: 1.2rem; }
+		.modal-content h2 { margin: 12px 50px 8px 0; font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1; }
+		.modal-description { color: var(--muted); line-height: 1.7; }
+		.detail-layout { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 28px; margin-top: 24px; }
+		.detail-layout h3 { margin: 0 0 10px; color: var(--sage-dark); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; }
+		.ingredients { margin: 0; padding: 0; list-style: none; color: var(--muted); line-height: 1.9; }
+		.ingredients li { border-bottom: 1px solid var(--line); }
+		.instructions { margin: 0; color: var(--muted); line-height: 1.75; white-space: pre-line; }
+
+		@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+		@keyframes spin { to { transform: rotate(360deg); } }
+
+		@media (max-width: 980px) {
+			.recipe-grid { grid-template-columns: repeat(3, 1fr); }
+			.toolbar { grid-template-columns: 1fr 1fr; }
+			.toolbar .field:first-child { grid-column: 1 / -1; }
+		}
+		@media (max-width: 680px) {
+			.shell { width: min(100% - 28px, 540px); }
+			header { padding-top: 18px; }
+			.hero { min-height: 0; grid-template-columns: 1fr; gap: 26px; padding: 40px 24px; }
+			.hero-stat { padding: 0 0 0 16px; }
+			.hero::after { right: -180px; top: -80px; }
+			.toolbar { grid-template-columns: 1fr; margin-top: 18px; }
+			.toolbar .field:first-child { grid-column: auto; }
+			.recipe-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+			.card-body { padding: 13px; }
+			.card-body h3 { font-size: 1.05rem; }
+			.detail-layout { grid-template-columns: 1fr; gap: 22px; }
+			.modal-content { padding: 22px; }
+		}
+		@media (max-width: 390px) { .recipe-grid { grid-template-columns: 1fr; } }
+	</style>
+</head>
+<body>
+	<div class="shell">
+		<header>
+			<a class="brand" href="#">
+				<span class="brand-mark"><span>✦</span></span>
+				<span>pantry</span>
+			</a>
+			<button class="favorites-button" id="favoritesToggle" type="button">♡ Favorites <span id="favoriteCount">0</span></button>
+		</header>
+
+		<main>
+			<section class="hero">
+				<div>
+					<p class="eyebrow">A little inspiration for dinner</p>
+					<h1>Good food starts with a curious mind.</h1>
+					<p class="hero-copy">Browse a world of dishes, find a new favorite, and bring something wonderful to the table.</p>
+				</div>
+				<div class="hero-stat"><strong id="heroCount">0</strong><span>recipes ready to explore</span></div>
+			</section>
+
+			<section class="toolbar" aria-label="Recipe filters">
+				<label class="field">
+					<span class="search-icon">⌕</span>
+					<input id="searchInput" type="search" placeholder="Search by recipe name..." autocomplete="off">
+				</label>
+				<label class="field">
+					<select id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option></select>
+				</label>
+				<label class="field">
+					<select id="areaFilter" aria-label="Filter by region"><option value="">All regions</option></select>
+				</label>
+				<button class="clear-button" id="clearFilters" type="button">Clear filters</button>
+			</section>
+
+			<div class="section-heading">
+				<h2 id="sectionTitle">Explore recipes</h2>
+				<span class="result-count" id="resultCount"></span>
+			</div>
+			<section class="recipe-grid" id="recipeGrid" aria-live="polite"></section>
+		</main>
+	</div>
+
+	<dialog id="recipeDialog">
+		<img class="modal-image" id="modalImage" alt="">
+		<div class="modal-content">
+			<button class="modal-close" id="modalClose" type="button" aria-label="Close recipe details">×</button>
+			<div class="card-meta"><span id="modalCategory"></span><span>•</span><span id="modalArea"></span></div>
+			<h2 id="modalTitle"></h2>
+			<p class="modal-description" id="modalDescription"></p>
+			<div class="detail-layout">
+				<div><h3>Ingredients</h3><ul class="ingredients" id="modalIngredients"></ul></div>
+				<div><h3>Method</h3><p class="instructions" id="modalInstructions"></p></div>
+			</div>
+		</div>
+	</dialog>
+
+	<script>
+		const API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+		const INDIAN_SEARCHES = ["Chicken Handi", "Lamb Biryani", "Dal fry", "Matar Paneer"];
+		const recipeGrid = document.getElementById("recipeGrid");
+		const searchInput = document.getElementById("searchInput");
+		const categoryFilter = document.getElementById("categoryFilter");
+		const areaFilter = document.getElementById("areaFilter");
+		const resultCount = document.getElementById("resultCount");
+		const sectionTitle = document.getElementById("sectionTitle");
+		const recipeDialog = document.getElementById("recipeDialog");
+		let allRecipes = [];
+		let showingFavorites = false;
+		let favorites = JSON.parse(localStorage.getItem("pantry-favorites") || "[]");
+
+		async function loadRecipes() {
+			showLoading();
+			try {
+				const responses = await Promise.all([
+					fetch(API_URL),
+					...INDIAN_SEARCHES.map(term => fetch(`${API_URL}${encodeURIComponent(term)}`))
+				]);
+				if (responses.some(response => !response.ok)) throw new Error("Unable to reach the recipe service");
+				const results = await Promise.all(responses.map(response => response.json()));
+				allRecipes = [...new Map(results.flatMap(result => result.meals || []).map(recipe => [recipe.idMeal, recipe])).values()];
+				populateFilters();
+				document.getElementById("heroCount").textContent = allRecipes.length;
+				updateFavoriteCount();
+				renderRecipes();
+			} catch (error) {
+				recipeGrid.innerHTML = `<div class="state"><strong>Kitchen is taking a moment</strong><span>${error.message}. Please refresh and try again.</span></div>`;
+			}
+		}
+
+		function populateFilters() {
+			const categories = [...new Set(allRecipes.map(recipe => recipe.strCategory).filter(Boolean))].sort();
+			const areas = [...new Set(allRecipes.map(recipe => recipe.strArea).filter(Boolean))].sort();
+			categoryFilter.innerHTML += categories.map(category => `<option value="${category}">${category}</option>`).join("");
+			areaFilter.innerHTML += areas.map(area => `<option value="${area}">${area}</option>`).join("");
+		}
+
+		function renderRecipes() {
+			const searchTerm = searchInput.value.trim().toLowerCase();
+			const category = categoryFilter.value;
+			const area = areaFilter.value;
+			let recipes = allRecipes.filter(recipe => {
+				const matchesSearch = recipe.strMeal.toLowerCase().includes(searchTerm);
+				const matchesCategory = !category || recipe.strCategory === category;
+				const matchesArea = !area || recipe.strArea === area;
+				const matchesFavorites = !showingFavorites || favorites.includes(recipe.idMeal);
+				return matchesSearch && matchesCategory && matchesArea && matchesFavorites;
+			});
+
+			sectionTitle.textContent = showingFavorites ? "Your favorites" : "Explore recipes";
+			resultCount.textContent = `${recipes.length} recipe${recipes.length === 1 ? "" : "s"}`;
+			if (!recipes.length) {
+				recipeGrid.innerHTML = `<div class="state"><strong>${showingFavorites ? "No saved recipes yet" : "Nothing on the menu"}</strong><span>${showingFavorites ? "Tap the heart on a recipe to keep it here." : "Try a different search or clear your filters."}</span></div>`;
+				return;
+			}
+			recipeGrid.innerHTML = recipes.map((recipe, index) => recipeCard(recipe, index)).join("");
+			bindVideoPreviews();
+		}
+
+		function recipeCard(recipe, index) {
+			const isFavorite = favorites.includes(recipe.idMeal);
+			const videoId = getYoutubeId(recipe.strYoutube);
+			return `<article class="recipe-card" style="animation-delay: ${Math.min(index, 8) * 45}ms">
+				<div class="card-image">
+					<img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" loading="lazy">
+					${videoId ? '<span class="video-badge">Play preview</span>' : ""}
+					<button class="favorite ${isFavorite ? "active" : ""}" data-favorite="${recipe.idMeal}" type="button" aria-label="${isFavorite ? "Remove from favorites" : "Add to favorites"}">${isFavorite ? "♥" : "♡"}</button>
+				</div>
+				<div class="card-body">
+					<div class="card-meta"><span>${recipe.strCategory || "Recipe"}</span><span>•</span><span>${recipe.strArea || "World"}</span></div>
+					<h3>${recipe.strMeal}</h3>
+					<div data-video-id="${videoId || ""}"></div>
+					<button class="view-button" data-recipe="${recipe.idMeal}" type="button">View recipe</button>
+				</div>
+			</article>`;
+		}
+
+		function getYoutubeId(url) {
+			if (!url) return "";
+			const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([^?&/]+)/);
+			return match ? match[1] : "";
+		}
+
+		function startVideoPreview(card) {
+			const videoId = card.querySelector("[data-video-id]")?.dataset.videoId;
+			if (!videoId || card.querySelector(".video-preview")) return;
+			const iframe = document.createElement("iframe");
+			iframe.className = "video-preview";
+			iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&rel=0&modestbranding=1`;
+			iframe.title = "Recipe video preview";
+			iframe.allow = "autoplay; encrypted-media";
+			iframe.referrerPolicy = "strict-origin-when-cross-origin";
+			iframe.setAttribute("aria-hidden", "true");
+			card.querySelector(".card-image").appendChild(iframe);
+			card.classList.add("is-playing");
+		}
+
+		function stopVideoPreview(card) {
+			card.querySelector(".video-preview")?.remove();
+			card.classList.remove("is-playing");
+		}
+
+		function bindVideoPreviews() {
+			if (!window.matchMedia("(hover: hover)").matches) return;
+			recipeGrid.querySelectorAll(".recipe-card").forEach(card => {
+				card.addEventListener("pointerenter", () => startVideoPreview(card));
+				card.addEventListener("pointerleave", () => stopVideoPreview(card));
+			});
+		}
+
+		function showLoading() {
+			recipeGrid.innerHTML = `<div class="state"><div class="loader"></div><strong>Setting the table</strong><span>Finding something delicious...</span></div>`;
+		}
+
+		function openRecipe(recipe) {
+			document.getElementById("modalImage").src = recipe.strMealThumb;
+			document.getElementById("modalImage").alt = recipe.strMeal;
+			document.getElementById("modalTitle").textContent = recipe.strMeal;
+			document.getElementById("modalCategory").textContent = recipe.strCategory || "Recipe";
+			document.getElementById("modalArea").textContent = recipe.strArea || "World";
+			document.getElementById("modalDescription").textContent = recipe.strTags ? recipe.strTags.split(",").map(tag => `#${tag.trim()}`).join(" ") : "A recipe worth making again.";
+			document.getElementById("modalInstructions").textContent = recipe.strInstructions || "No instructions available.";
+			const ingredients = [];
+			for (let i = 1; i <= 20; i++) {
+				const ingredient = recipe[`strIngredient${i}`];
+				const measure = recipe[`strMeasure${i}`];
+				if (ingredient && ingredient.trim()) ingredients.push(`<li>${measure ? measure.trim() : ""} ${ingredient.trim()}</li>`);
+			}
+			document.getElementById("modalIngredients").innerHTML = ingredients.join("");
+			recipeDialog.showModal();
+		}
+
+		function updateFavoriteCount() { document.getElementById("favoriteCount").textContent = favorites.length; }
+
+		function toggleFavorite(id) {
+			favorites = favorites.includes(id) ? favorites.filter(favorite => favorite !== id) : [...favorites, id];
+			localStorage.setItem("pantry-favorites", JSON.stringify(favorites));
+			updateFavoriteCount();
+			renderRecipes();
+		}
+
+		recipeGrid.addEventListener("click", event => {
+			const favoriteButton = event.target.closest("[data-favorite]");
+			const recipeButton = event.target.closest("[data-recipe]");
+			if (favoriteButton) toggleFavorite(favoriteButton.dataset.favorite);
+			if (recipeButton) openRecipe(allRecipes.find(recipe => recipe.idMeal === recipeButton.dataset.recipe));
+		});
+
+		[searchInput, categoryFilter, areaFilter].forEach(control => control.addEventListener("input", renderRecipes));
+		document.getElementById("clearFilters").addEventListener("click", () => {
+			searchInput.value = "";
+			categoryFilter.value = "";
+			areaFilter.value = "";
+			showingFavorites = false;
+			renderRecipes();
+		});
+		document.getElementById("favoritesToggle").addEventListener("click", () => {
+			showingFavorites = !showingFavorites;
+			renderRecipes();
+		});
+		document.getElementById("modalClose").addEventListener("click", () => recipeDialog.close());
+		recipeDialog.addEventListener("click", event => { if (event.target === recipeDialog) recipeDialog.close(); });
+		loadRecipes();
+	</script>
+</body>
+</html>

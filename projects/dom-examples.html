@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .heading{
+            color: blue;
+            text-decoration: underline;
+            text-align: center;
+        }
+        .button{
+            background-color: green;
+            color: white;
+            padding: 150px;
+            border: none;
+            border-radius: 5px;
+            margin-left: 200px;
+            border-top-left-radius: 500px;
+            border-bottom-right-radius: 500px;
+            border:5px dashed orange;
+        }
+        .button1{
+            background-color: black;
+            padding: 100px;
+            border: none;
+            border-radius: 10000px;
+            font-size: 200px;
+            margin-left: 50px;
+        }
+        .button2{
+            background-color: grey;
+            padding: 100px;
+            border-radius: 100000px;
+            font-size: 200px;
+            border-color: black;
+            border: 5px solid black;
+            margin-left: 50px;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1 id = "mainheading">Dom operations</h1>
+    <h1>Hello World</h1>
+    <button id = "buttonid">Submit</button>
+    <button1 id = "button1id">😁</button1>
+    <button2 id = "button2id">🍔</button2>
+
+
+    <script>
+        let mainHeading = document.getElementById("mainheading");
+        // console.log(mainHeading.textContent);
+        // mainHeading.textContent = "123467890";
+        // mainHeading.style.color = "Blue";
+        mainHeading.classList.add("heading");
+        let buttonID = document.getElementById("buttonid");
+        buttonID.classList.add("button");
+
+        let button1ID = document.getElementById("button1id");
+        button1ID.classList.add("button1");
+
+        let button2ID = document.getElementById("button2id");
+        button2ID.classList.add("button2");
+
+    </script>
+</body>
+</html>

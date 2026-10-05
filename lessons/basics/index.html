@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Objects</title>
+</head>
+<body>
+    <h1>Object Demo</h1>
+    <h3>Student Details</h3>
+    <script>
+        const student=[
+            {
+                name: "Rekha",
+                email: "Rekha@mail.com",
+                age: 20
+            },
+            {
+                name: "akshara",
+                email: "akshara@mail.com",
+                age: 21
+            },
+            {
+                name: "ammu",
+                email: "ammu@mail.com",
+                age: 22
+            },
+            {
+                name: "sridevi",
+                email: "sridevi@mail.com",
+                age: 30
+            },
+            {
+                name: "amala",
+                email: "amala@mail.com",
+                age: 35
+            }
+        ]
+        console.log(student);
+        for(i of student){
+            document.write("</br>Name: ",i.name);
+            document.write("</br>Email: ",i.email);
+            document.write("</br>Age: ",i.age);
+        }
+    </script>
+</body>
+</html>

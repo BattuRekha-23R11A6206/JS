@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //primitive means copies values like it get
+        //copied value is independent of original value
+
+
+        //non-primitive means copies reference like it get
+        //copied reference is dependent of original reference
+
+        //spread operator
+        //it is used to copy the values of one array into another array
+        let arr1 = [1, 2, 3, 4, 5];
+        let arr2 = [...arr1];
+        console.log(arr2);
+
+        let a1 = [1, 2, 3, 4, 5];
+        let a2 = [6, 7, 8, 9, 10];
+
+        let mergedArray = [...a1, ...a2]; // merging two arrays
+        console.log(mergedArray);
+
+        //rest operator
+        //it is used to collect the remaining elements of an array into a new array
+        const arr3 = [1, 2, 3, 4, 5];
+        const[a,...rest] = arr3; // rest operator collects the remaining elements
+        console.log(a); // 1
+        console.log(rest); // [2, 3, 4, 5]
+
+        
+
+    </script>
+</body>
+</html>

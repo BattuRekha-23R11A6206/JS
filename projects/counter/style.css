@@ -1,0 +1,42 @@
+#mainContainer{
+    text-align: center;
+    background-color: aqua;
+    padding: 20px;
+}
+
+#Increment{
+    background-color: green;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+#Decrement{
+    background-color: red;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+#Reset{
+    background-color: yellow;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;  
+    margin: 10px;
+    border-radius: 5px;
+}
+
+#mainHeading{
+    color: blue;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: underline;
+}

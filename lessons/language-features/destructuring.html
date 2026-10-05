@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //destructuring
+        //means extracting values from an object or
+        //array and assigning them to variables in a single statement.
+        //object destructuring use {}
+        let obj = {
+            name: "hyd",
+            loc: "ECIL"
+        }
+
+        let {name, loc} = obj;
+
+        console.log(name);
+        console.log(loc);
+
+        //array destructuring use []
+        const arr = ["naveen", "rekha", "sai", "sandeep"];
+        const[student1, student2, student3, student4] = arr; 
+
+        console.log(student1);
+        console.log(student2);
+    </script>
+</body>
+</html>

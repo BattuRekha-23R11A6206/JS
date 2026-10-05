@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro to JS</title>
+</head>
+<body>
+    <script>
+        console.log("Hello, World!");
+        var b = 2;
+        var b = 3;
+        let a = 2;
+        a = 3;
+        const c = 4;
+        console.log(a,b,c);
+
+        if(true){
+            var y = 5;
+            let x = 5;
+            const z = 5;
+        }
+        console.log(y); // This will work because y is declared with var and is function-scoped
+        console.log(x); // This will throw an error because x is not defined in this scope
+        console.log(z); // This will throw an error because z is not defined in this scope
+    </script>
+</body>
+</html>
